@@ -1,0 +1,6 @@
+Select distinct a.num as ConsecutiveNums 
+From Logs a Join Logs b on a.id+1 = b.id
+join Logs c On b.id+1 = c.id
+Where a.num=b.num And b.num=c.num And a.num =c.num
+
+# add a keyword DISTINCT because it will display a duplicated number if one number appears more than 3 times consecutively.

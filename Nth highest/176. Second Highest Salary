@@ -1,0 +1,3 @@
+Select max(b.Salary) as SecondHighestSalary
+From Employee a, Employee b
+Where a.Salary > b.Salary

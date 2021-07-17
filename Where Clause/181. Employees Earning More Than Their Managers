@@ -1,0 +1,4 @@
+Select a.Name as 'Employee'
+From Employee a join Employee b 
+On a.ManagerId = b.id
+Where a.Salary  > b.Salary

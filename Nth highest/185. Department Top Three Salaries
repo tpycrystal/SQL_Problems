@@ -1,0 +1,8 @@
+With cte as (
+Select *, dense_rank() over (partition by DepartmentId Order by Salary DESC) salaryrank
+From Employee) 
+
+Select d.Name as Department, cte.Name as Employee, Salary
+From cte join Department d on cte.DepartmentId = d.Id
+Where salaryrank <=3
+Order by 1

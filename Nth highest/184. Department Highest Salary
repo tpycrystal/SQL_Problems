@@ -1,0 +1,16 @@
+#CTE & Where Clause
+With cte as (
+Select *, Dense_rank() over (partition by DepartmentId Order by Salary DESC) as 'salaryrank'
+From Employee )
+
+Select d.Name as Department, cte.Name as Employee, Salary
+From cte join Department d on cte.DepartmentId = d.Id
+Where salaryrank = 1
+
+
+----------------
+#JOIN & IN Statement 
+Select d.Name as Department , e.Name as Employee, Salary
+From Employee e join Department d on e.DepartmentId = d.Id
+Where (DepartmentId , Salary) IN (Select DepartmentId , max(Salary) From Employee Group by DepartmentId)
+
