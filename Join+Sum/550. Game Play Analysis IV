@@ -1,0 +1,9 @@
+With cte as(
+Select player_id, min(event_date) as event_date 
+    From Activity
+Group by player_id
+)
+
+Select Round(Count( b.player_id )/Count(cte.player_id ),2) as fraction  
+From cte Left join Activity b on Datediff(b.event_date, cte.event_date)=1 
+And cte.player_id = b.player_id

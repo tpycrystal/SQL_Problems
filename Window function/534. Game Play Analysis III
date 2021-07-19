@@ -1,0 +1,3 @@
+Select player_id, event_date, Sum(games_played) over (partition by player_id Order by event_date) as games_played_so_far
+From Activity
+Order by player_id

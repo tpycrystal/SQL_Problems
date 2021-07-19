@@ -1,0 +1,10 @@
+With unbanned as(Select Users_Id, Banned From Users Where Banned='NO' )
+, cte as (Select Id, Status, Request_at 
+             From Trips t join unbanned u on t.Client_Id = u.Users_Id 
+             Join unbanned u2 on t.Driver_Id =u2.Users_Id
+            And Request_at Between "2013-10-01" and "2013-10-03")
+
+Select Request_at as 'Day', Round(Sum(if(Status !='completed',1,0))/Count(*),2) as 'Cancellation Rate'
+From cte
+Group by Request_at
+Order by Request_at ASC
