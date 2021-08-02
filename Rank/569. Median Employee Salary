@@ -1,0 +1,9 @@
+With cte as (Select *, row_number() over (partition by Company Order by Salary ASC, Id ASC) as ascrank,
+             row_number() over (partition by Company Order by Salary DESC, Id DESC) as descrank
+             From Employee
+            )
+
+Select Id, Company, Salary
+From cte
+Where ascrank Between descrank-1 And descrank +1
+Order by Id, Company

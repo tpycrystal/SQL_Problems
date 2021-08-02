@@ -1,0 +1,6 @@
+Select Name
+From Employee
+Where Id in (Select ManagerId
+     From Employee
+     Group by ManagerId
+     Having count(Name)>=5) 
