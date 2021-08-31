@@ -1,0 +1,9 @@
+With cte as (
+Select *, row_number() over (partition by username Order by endDate DESC) as activityorder,
+    Count(*) over (partition by username ) as counts
+From UserActivity)
+
+
+Select distinct username, activity, startDate, endDate
+From cte
+Where(counts >1  AND activityorder=2) OR (counts=1  AND activityorder=1)

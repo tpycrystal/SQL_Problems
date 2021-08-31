@@ -1,0 +1,24 @@
+With cte as (
+    Select product_id, 
+    average_daily_sales*(Datediff(Least('2018-12-31', period_end), Greatest('2018-01-01', period_start))+1) totalsale2018,
+    average_daily_sales*(Datediff(Least('2019-12-31', period_end), Greatest('2019-01-01', period_start))+1) totalsale2019,
+    average_daily_sales*(Datediff(Least('2020-12-31', period_end), Greatest('2020-01-01', period_start))+1) totalsale2020
+ 
+    From Sales),
+    
+cte2 as (Select product_id, '2018' as report_year, totalsale2018 as total_amount
+        From cte
+        Where totalsale2018 > 0
+        Union all
+        Select product_id, '2019' as report_year, totalsale2019 as total_amount
+        From cte
+        Where totalsale2019 > 0
+        Union all
+        Select product_id, '2020' as report_year, totalsale2020 as total_amount
+        From cte
+        Where totalsale2020 > 0
+        Order by product_id, report_year
+        )
+
+Select cte2.product_id, product_name, report_year, total_amount
+From Product p join cte2 on p.product_id = cte2.product_id

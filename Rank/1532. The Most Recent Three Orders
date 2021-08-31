@@ -1,0 +1,8 @@
+With cte as(
+Select *, row_number() over (partition by customer_id order by order_date DESC ) as recent_purchase
+from Orders )
+
+Select c.name as customer_name, o.customer_id, order_id, order_date 
+From Customers c join cte o on c.customer_id = o.customer_id
+Where recent_purchase Between 1 and 3
+Order by customer_name ASC, o.customer_id ASC, order_date DESC
