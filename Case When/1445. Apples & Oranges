@@ -1,0 +1,3 @@
+Select DISTINCT sale_date as SALE_DATE,
+Sum(Case When fruit ='apples' Then sold_num Else -sold_num End )over (partition by sale_date) as DIFF
+From Sales

@@ -1,0 +1,11 @@
+With ctesell as (
+Select stock_name , sum(price) over (partition by stock_name) as  total_profit
+From Stocks 
+Where operation ='Sell'),
+ctebuy as (
+Select stock_name, sum(price) over (partition by stock_name) as total_cost
+From Stocks
+Where operation ="Buy")
+
+Select distinct s.stock_name, s.total_profit - b.total_cost as capital_gain_loss
+From ctesell s join ctebuy b on  s.stock_name = b.stock_name
