@@ -1,0 +1,5 @@
+Select distinct a.Num as ConsecutiveNums
+From Logs a join Logs b on a.id+1 =b.id
+Join Logs c On b.id+1 = c.id
+Where a.Num = b.Num And b.Num=c.Num
+And a.Num = c.Num
