@@ -1,0 +1,14 @@
+Select distinct buyer_id 
+From Sales s join Product p Using(product_id) 
+WHere  product_name ='S8' 
+And (buyer_id) not in (Select buyer_id 
+                        From Sales s join Product p 
+                        Using(product_id)
+                        Where product_name ='iPhone')
+                        
+__________________________________________________
+
+Select distinct buyer_id
+From Product p join Sales s Using(product_id)
+Group by buyer_id
+Having Sum(p.product_name='S8') > 0 And Sum(p.product_name='iPhone')=0

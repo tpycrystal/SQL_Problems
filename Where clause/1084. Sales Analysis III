@@ -1,0 +1,8 @@
+With cte as (
+Select distinct product_id 
+From Sales 
+Where sale_date < '2019-01-01' Or sale_date >'2019-03-31')
+
+Select distinct product_id, product_name
+From Sales s join Product p Using(product_id)
+Where s.product_id Not in (Select product_id from cte)

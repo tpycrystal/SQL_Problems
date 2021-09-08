@@ -1,0 +1,8 @@
+With cte as (
+Select distinct project_id, count(employee_id) as ecount
+From Project 
+Group by project_id
+)
+Select project_id
+From cte
+Where ecount = (select max(ecount) from cte)

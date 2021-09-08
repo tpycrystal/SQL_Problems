@@ -1,0 +1,9 @@
+Select seller_id
+From Sales
+Group by seller_id
+Having sum(price) = (select sum(price)
+                     From Sales 
+                     Group by seller_id
+                     Order by sum(price) DESC
+                     limit 1
+                     )

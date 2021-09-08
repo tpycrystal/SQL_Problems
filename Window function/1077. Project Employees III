@@ -1,0 +1,8 @@
+With cte as(
+Select project_id, employee_id, Dense_rank() over (partition by project_id Order by experience_years DESC) as exprank
+From Project p join Employee e 
+Using(employee_id))
+
+Select project_id, employee_id
+From cte
+Where exprank = 1
