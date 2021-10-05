@@ -1,0 +1,11 @@
+ With cte as (
+Select *
+From Stadium
+Where people >= 100)
+
+Select distinct s1.*
+From cte s1 join cte s2 JOIN cte s3
+on (s3.id-s2.id= 1 And s3.id-s1.id= 2 And s2.id-s1.id= 1) # s1,s2,s3
+Or (s3.id-s2.id= 1 And s1.id-s3.id= 1 And s1.id-s2.id= 2) # s2,s3,s1
+Or (s2.id-s3.id= 2 And s1.id-s3.id= 1 And s2.id-s1.id= 1) # s3,s1,s2
+Order by s1.visit_date

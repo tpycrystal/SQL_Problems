@@ -1,0 +1,4 @@
+Select distinct dept_name, count(student_id) over (partition by dept_id) as student_number
+From department Left join student
+Using(dept_id)
+Order by student_number DESC

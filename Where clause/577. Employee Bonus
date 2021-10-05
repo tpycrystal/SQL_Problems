@@ -1,0 +1,4 @@
+Select  name, bonus 
+From Employee e left join Bonus b 
+On e.empId = b.empId 
+Where bonus < 1000 Or bonus IS NUll

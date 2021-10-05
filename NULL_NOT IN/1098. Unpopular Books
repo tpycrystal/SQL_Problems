@@ -1,0 +1,13 @@
+Select book_id, name
+From Books
+Where datediff('2019-06-23', available_from ) >30
+ANd book_id not in(
+Select book_id From Orders
+Where dispatch_date between '2018-06-23' And '2019-06-23'
+Group by book_id
+Having sum(quantity) >= 10)
+
+
+-------------------------------------------------------------
+Since there might be books that didn't sell at all. Then Orders table wouldn't have the record.
+Thus using Not in would be a better choice.

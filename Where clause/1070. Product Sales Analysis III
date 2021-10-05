@@ -1,3 +1,14 @@
+Select  product_id, product_name
+From Product p 
+Where product_id in (Select product_id 
+                      From Sales s 
+                      Group by product_id
+                      Having min(sale_date)>='2019-01-01' And Max(sale_date) <= '2019-03-31')
+                      
+                      
+#faster than 77.12%
+________________________________________________________________________________
+
 Select distinct product_id, year as first_year, quantity, price
 From Sales s
 Where (product_id, year) in (Select  product_id, min(year) From Sales Group by product_id)

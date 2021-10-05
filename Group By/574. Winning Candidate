@@ -1,0 +1,9 @@
+With cte as (
+Select CandidateId, count(*) as countv
+From Vote
+Group by CandidateId)
+
+Select Name 
+From cte Join Candidate c
+On c.id= cte.CandidateId
+Where  countv in (Select max(countv) From cte) 
