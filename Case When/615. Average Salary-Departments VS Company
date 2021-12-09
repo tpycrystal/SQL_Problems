@@ -1,0 +1,18 @@
+# Write your MySQL query statement below
+With companyaveragesalary as (
+    Select  avg(amount) as companyavgsalary, date_format(pay_date, '%Y-%m') as pay_month
+    From Salary 
+    Group by pay_month),
+dptavgsalary as(Select  department_id, avg(amount) as departmentavgsalary, date_format(pay_date, '%Y-%m') as pay_month
+    From Salary s join Employee e on s.employee_id = e.employee_id 
+    Group by  department_id, pay_month)
+    
+Select davg.pay_month, davg.department_id, 
+Case 
+When departmentavgsalary > companyavgsalary Then 'higher'
+When departmentavgsalary = companyavgsalary Then 'same'
+When departmentavgsalary < companyavgsalary Then 'lower'
+End as 'comparison'
+From 
+companyaveragesalary cavg join dptavgsalary davg 
+on cavg.pay_month =davg.pay_month

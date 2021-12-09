@@ -1,0 +1,14 @@
+
+#make cte to get row number since we did not know whether left join or right join without this
+With cte as (
+Select distinct *, row_number() over (partition by continent) as rowid
+From Student)
+
+Select distinct America, Asia, Europe
+From cte left join (Select  name as 'America', row_number() over (order by name) as usaid From Student Where continent ='America') usa
+on cte.rowid=usa.usaid
+left join( Select  name as 'Asia', row_number() over (order by name) as asiaid  From Student Where continent ='Asia' ) asia
+on cte.rowid=asia.asiaid
+left join
+( Select  name as 'Europe', row_number() over (order by name) as euid From Student Where continent ='Europe') eu
+on cte.rowid=eu.euid

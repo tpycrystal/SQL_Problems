@@ -1,0 +1,4 @@
+Update Salary
+Set sex = 
+Case When sex='m' Then 'f'
+else 'm' End

@@ -1,0 +1,4 @@
+Select max(num) as num
+From (Select num, count(*) over (partition by num)as totalcount
+     From MyNumbers) T
+Where totalcount = 1

@@ -1,0 +1,7 @@
+With cte as (Select count(distinct product_key) as totalp
+            From Product)
+Select customer_id
+From (Select customer_id, count(distinct product_key) as boughtamount
+     From Customer 
+     Group by customer_id) T , cte
+Where boughtamount = totalp

@@ -1,0 +1,13 @@
+With cte as (
+Select customer_id 
+From Orders
+Where product_name in ('A','B')
+Group by customer_id
+Having count(distinct product_name)=2)
+    
+Select distinct cte.customer_id, customer_name
+From cte
+left join Customers using(customer_id) 
+Where customer_id not in (select customer_id
+From Orders
+Where product_name = 'C' )
